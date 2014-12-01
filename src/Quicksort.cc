@@ -13,7 +13,7 @@ using std::endl;
 
 const size_t WIDTH = 100;
 
-void quicksort(int *a, size_t size) {
+void mergesort(int *a, size_t size) {
 	int key = a[0];
 	size_t i = 0, j= 1;
 	if(size > 1) {
@@ -28,8 +28,8 @@ void quicksort(int *a, size_t size) {
 		}
 		a[0] = a[i];
 		a[i] = key;
-		quicksort(a, i);
-		quicksort(a+i+1, size-i-1);
+		mergesort(a, i);
+		mergesort(a+i+1, size-i-1);
 	}
 }
 
@@ -52,7 +52,7 @@ int main() {
 	gen_random(data, WIDTH);
 	cout << "Before Sort:" << endl;
 	display(data, WIDTH);
-	quicksort(data, WIDTH);
+	mergesort(data, WIDTH);
 	cout << "After Sort:" << endl;
 	display(data, WIDTH);
 	delete [] data;
