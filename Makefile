@@ -14,3 +14,4 @@ quicksort:Quicksort.cc
 
 clean:
 	@rm quicksort
+	@rm -r quicksort.dSYM
