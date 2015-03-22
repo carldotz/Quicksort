@@ -13,7 +13,7 @@ using std::endl;
 
 static int count = 0;
 
-const size_t WIDTH = 100;
+const size_t WIDTH = 6;
 
 void quicksort2(int *a, size_t size) {
 	int key = a[size-1];
@@ -63,7 +63,7 @@ void quicksort1(int *a, size_t size) {
 
 void gen_random(int *a, size_t size) {
 	for(size_t i=0;i<size;++i) {
-		*(a+i) = random()/10000000;
+		*(a+i) = random()%10;
 	}
 }
 
@@ -74,22 +74,25 @@ void display(int *a, size_t size) {
 	cout << endl;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 	int *data = NULL;
 	data = new int[WIDTH];
 	gen_random(data, WIDTH);
 	cout << "Before Sort:" << endl;
 	display(data, WIDTH);
-	count = 0;
-	quicksort1(data, WIDTH);
-	cout << "After Sort1:" << count << endl;
-	display(data, WIDTH);
-	gen_random(data, WIDTH);
-	cout << "Before Sort:" << endl;
-	display(data, WIDTH);
-	count = 0;
-	quicksort2(data, WIDTH);
-	cout << "After Sort2:" << count << endl;
+	switch(argv[1][0]) {
+		case('1'):
+			quicksort1(data, WIDTH);
+			break;
+		case('2'):
+			quicksort2(data, WIDTH);
+			break;
+		default:
+			cout << "Argument Error" << endl;
+			return 0;
+			break;
+	}
+	cout << "After Sort:" << count << endl;
 	display(data, WIDTH);
 	delete [] data;
 }
