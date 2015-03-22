@@ -11,25 +11,27 @@
 using std::cout;
 using std::endl;
 
+static int count = 0;
+
 const size_t WIDTH = 100;
 
-void mergesort(int *a, size_t size) {
-	int key = a[0];
-	size_t i = 0, j= 1;
+void quicksort(int *a, size_t size) {
+	int key = a[size - 1];
+	size_t i = 0, j= 0;
 	if(size > 1) {
-		while(j < size) {
-			if(a[j] > key) ++j;
-			else {
-				int t = a[i+1];
-				a[i+1] = a[j];
+		for(i=0,j=0;j < size - 1;++j) {
+			if(a[j] < key) {
+				int t = a[i];
+				a[i] = a[j];
 				a[j] = t;
-				++j; ++i;
+				++i;
 			}
+			count++;
 		}
-		a[0] = a[i];
+		a[size-1] = a[i];
 		a[i] = key;
-		mergesort(a, i);
-		mergesort(a+i+1, size-i-1);
+		quicksort(a, i);
+		quicksort(a+i+1, size-i-1);
 	}
 }
 
@@ -52,8 +54,8 @@ int main() {
 	gen_random(data, WIDTH);
 	cout << "Before Sort:" << endl;
 	display(data, WIDTH);
-	mergesort(data, WIDTH);
-	cout << "After Sort:" << endl;
+	quicksort(data, WIDTH);
+	cout << "After Sort:" << count << endl;
 	display(data, WIDTH);
 	delete [] data;
 }
